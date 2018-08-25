@@ -1,7 +1,7 @@
 <template lang="pug">
     main
       form
-        .field
+        .field(novalidate)
           input(
             type="email"
             placeholder="ejemplo@correo.com"
@@ -12,16 +12,19 @@
         .field
           input(
             type="password"
-            laceholder="*****"
+            placeholder="*****"
             v-model="password"
             @keyup="changeField(password, 'password')"
           )
           p.error(v-if="passwordError.show") {{passwordError.msg}}
-        .button(@click="login") Iniciar sesión
+        button.btn.red(@click="login")
+          span(v-if="!isLoading") Iniciar sesión
+          spinner(v-if="isLoading")
       a Olvide mi contraseña
 </template>
 
 <script>
+  import Spinner from './Spinner.vue';
   import { isEmail } from '../scripts/general.js';
 
   export default {
@@ -35,6 +38,7 @@
         passwordError: {
           show: false
         },
+        isLoading: false
       }
     },
     methods: {
@@ -51,6 +55,14 @@
           this.passwordError.show = true;
           this.$set(this.passwordError, 'msg', 'La contraseña no ha sido ingresada.')
         }
+
+        if (!this.emailError.show && !this.passwordError.show) {
+          this.isLoading = true;
+
+          setTimeout(() => {
+            this.isLoading = false;
+          }, 1000);
+        }
       },
       changeField(field, type) {
         if (field) {
@@ -58,6 +70,9 @@
           this[`${type}Error`].msg = '';
         }
       }
+    },
+    components: {
+      Spinner
     }
   }
 </script>

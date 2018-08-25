@@ -1,4 +1,20 @@
 <template lang="pug">
-  main
-    h1 Historial de ligas creadas
+  #app
+    header-component
+
 </template>
+
+<script>
+  import HeaderComponent from './Header.vue';
+
+  export default {
+    data() {
+      return {
+        currentPage: 1
+      }
+    },
+    components: {
+      HeaderComponent
+    }
+  }
+</script>

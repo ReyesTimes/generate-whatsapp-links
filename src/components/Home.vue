@@ -1,5 +1,6 @@
 <template lang="pug">
-  main
+  #app
+    header-component
     h1.uppercase Crear botón whatsapp
     p Ingresa el número y el mensaje que deseas envíar.
 
@@ -26,6 +27,8 @@
 </template>
 
 <script>
+  import HeaderComponent from './Header.vue';
+
   import { encodeStringURI } from '../scripts/general.js';
   import { urlWhatsapp } from '../scripts/config.js';
 
@@ -47,6 +50,9 @@
           show: false,
         }
       }
+    },
+    components: {
+      HeaderComponent
     },
     methods: {
       generateLink() {
