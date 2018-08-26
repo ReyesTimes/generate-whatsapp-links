@@ -1,33 +1,39 @@
 <template lang="pug">
-  #app
+  main
     header-component
-    h1.uppercase Crear botón whatsapp
-    p Ingresa el número y el mensaje que deseas envíar.
+    .container
+      h1.uppercase Crear botón whatsapp
+      p Ingresa el número y el mensaje que deseas envíar.
 
-    form(@submit.prevent="generateLink" v-if="!hasLink.show")
-      phone-section(
-        :phone="phone"
-        v-show="!showEditPhone"
-      )
-      edit-phone(
-        :phone="phone"
-        :phoneError="phoneError"
-        v-show="showEditPhone"
-        @removePhone="removePhone"
-        @showPhoneMessage="showPhoneMessage"
-        @hidePhoneMessage="hidePhoneMessage"
-      )
-      .field
-        textarea(v-model="msg")
-        p.error(v-if="msgError.show") {{msgError.msg}}
-      button.green.uppercase(type="submit") Generar liga
+      form(@submit.prevent="generateLink" v-if="!hasLink.show")
+        phone-section(
+          :phone="phone"
+          v-show="!showEditPhone"
+        )
+        edit-phone(
+          :phone="phone"
+          :phoneError="phoneError"
+          v-show="showEditPhone"
+          @removePhone="removePhone"
+          @showPhoneMessage="showPhoneMessage"
+          @hidePhoneMessage="hidePhoneMessage"
+          @phoneValue="phoneValue"
+        )
+        label(for="message") Tu mensaje
+        .field
+          textarea(
+            id="message"
+            v-model="msg"
+          )
+          p.error(v-if="msgError.show") {{msgError.msg}}
+        button.btn.green.uppercase(type="submit") Generar liga
 
-    .container(v-if="hasLink.show")
-      a(:href="hasLink.url" target="_blank") {{hasLink.url}}
-      button.green Copiar liga
-      button.transparent.underline(
-        @click="editLink"
-      ) Editar
+      .container(v-if="hasLink.show")
+        a(:href="hasLink.url" target="_blank") {{hasLink.url}}
+        button.btn.green Copiar liga
+        button.btn.transparent.underline(
+          @click="editLink"
+        ) Editar
 </template>
 
 <script>
@@ -96,6 +102,9 @@
       editLink() {
         this.hasLink.show = false;
       },
+      phoneValue(phone) {
+        this.phone = phone;
+      },
       removePhone() {
         this.phone = '';
         localStorage.removeItem('PHONE');
@@ -128,3 +137,14 @@
     }
   }
 </script>
+
+<style lang="scss">
+  input, textarea {
+    background-color: #eeeeee;
+  }
+
+  h1 {
+    font-size: 1.5em;
+    text-align: center;
+  }
+</style>

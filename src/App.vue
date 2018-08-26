@@ -28,6 +28,13 @@ export default {
     list-style: none;
   }
 
+  input, .btn {
+    min-height: 40.50px;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
+  }
+
   input {
     padding: 0.8em 1em;
     text-align: center;
@@ -38,14 +45,10 @@ export default {
     text-align: center;
     text-transform: uppercase;
     color: $white;
-    min-height: 38.50px;
     position: relative;
     font-weight: bold;
     padding: 0.8em 1.1em;
     width: 100%;
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
-    box-sizing: border-box;
     outline:0;
     -webkit-box-shadow: 1px 2px 3px 0px rgba(64, 64, 64, 0.52);
     -moz-box-shadow: 1px 2px 3px 0px rgba(64, 64, 64, 0.52);
@@ -57,6 +60,17 @@ export default {
 
     &.red {
       background-color: $red;
+    }
+
+    &.transparent {
+      background-color: transparent;
+      border: 0px solid transparent;
+      color: black;
+      box-shadow: none;
+    }
+
+    &.small {
+      width: auto;
     }
 
     .spinner {
@@ -71,5 +85,18 @@ export default {
 
   .error {
     color: $red;
+  }
+
+  .uppercase {
+    text-transform: uppercase;
+  }
+
+  .field {
+    margin-bottom: 20px;
+  }
+
+  label {
+    margin-bottom: 0.5em;
+    display: block;
   }
 </style>

@@ -1,21 +1,22 @@
 <template lang="pug">
-  .field.flex
+  div
     label(for="phone") Tu número
-    input(
-      type="tel"
-      id="phone"
-      v-model="phoneValue"
-      @keyup.prevent="changePhone"
-    )
-    button.green(
-      type="button"
-      @click="editPhone"
-    ) Guardar
-    button.transparent(
-      type="button"
-      @click="removePhone"
-    ) ×
-    p.error(v-if="phoneError.show") {{phoneError.msg}}
+    .field.flex
+      input(
+        type="tel"
+        id="phone"
+        v-model="phoneValue"
+        @keyup.prevent="changePhone"
+      )
+      button.btn.small.green(
+        type="button"
+        @click="editPhone"
+      ) Guardar
+      button.btn.small.transparent(
+        type="button"
+        @click="removePhone"
+      ) ×
+      p.error(v-if="phoneError.show") {{phoneError.msg}}
 </template>
 
 <script>
@@ -42,6 +43,8 @@
         if (this.phoneValue) {
           this.$emit('hidePhoneMessage');
         }
+
+        this.$emit('phoneValue', this.phoneValue);
       }
     },
     watch: {

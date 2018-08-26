@@ -1,6 +1,8 @@
 <template lang="pug">
     main.main
       .container
+        .logo
+          img(src="../assets/hanna1.svg")
         form(
           novalidate
           @submit.prevent="login"
@@ -55,7 +57,7 @@
           this.$set(this.emailError, 'msg', 'El correo no ha sido ingresado.');
         } else if (!isEmail(this.email)) {
           this.emailError.show = true;
-          this.$set(this.emailError, 'msg', 'El correo es incorrecto.');
+          this.$set(this.emailError, 'msg', 'El correo no es valido.');
         }
 
         if (!this.password) {
@@ -73,7 +75,7 @@
             })
             .catch(() => {
               this.isLoading = false;
-              
+
               this.passwordError.show = true;
               this.$set(this.passwordError, 'msg', 'El usuario es incorrecto.');
             })
@@ -105,14 +107,18 @@
     text-align: center;
   }
 
-  .field {
-    margin-bottom: 20px;
-  }
-
   .recover-pass {
     color: #2c3e50;
     text-decoration: underline;
     margin-top: 25px;
     display: block;
+  }
+
+  .logo {
+    margin-bottom: 30px;
+
+    img {
+      width: 150px;
+    }
   }
 </style>
