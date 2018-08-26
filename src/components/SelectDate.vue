@@ -4,19 +4,21 @@
       label Fecha desde
       datepicker(
           v-model="startDateValue"
-          format="d/MM/yyyy"
+          format="d/MMM/yyyy"
           placeholder="--/--/----"
           :disabledDates="disabledStartDate"
+          :language="es"
       )
       span icon
     div
       label Fecha hasta
       datepicker(
           v-model="endDateValue"
-          format="d/MM/yyyy"
+          format="d/MMM/yyyy"
           placeholder="--/--/----"
           @selected="changeDate('end')"
           :disabledDates="disabledEndDate"
+          :language="es"
       )
       span icon
 </template>
@@ -33,14 +35,15 @@
         endDateValue: this.endDate,
         disabledStartDate: {},
         disabledEndDate: {},
+        es
       }
     },
     watch: {
       startDateValue(newValue, oldValue) {
-        this.$set(this.disabledEndDate, 'to', this.endDateValue);
+        this.$set(this.disabledEndDate, 'to', this.startDateValue);
       },
       endDateValue(newValue, oldValue) {
-        this.$set(this.disabledStartDate, 'to', this.startDateValue);
+        this.$set(this.disabledStartDate, 'from', this.endDateValue);
       }
     },
     components: {

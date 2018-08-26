@@ -7,9 +7,8 @@
 <style lang="scss">
   .spinner {
     animation: rotate 2s linear infinite;
-    margin: 5px;
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
 
     & .path {
       stroke: hsl(360, 100%, 100%);

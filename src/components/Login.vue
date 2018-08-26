@@ -1,31 +1,38 @@
 <template lang="pug">
-    main
-      form
-        .field(novalidate)
-          input(
-            type="email"
-            placeholder="ejemplo@correo.com"
-            v-model="email"
-            @keyup="changeField(email, 'email')"
+    main.main
+      .container
+        form(
+          novalidate
+          @submit.prevent="login"
+        )
+          .field
+            input(
+              type="email"
+              placeholder="ejemplo@correo.com"
+              v-model="email"
+              @keyup="changeField(email, 'email')"
+            )
+            p.error(v-if="emailError.show") {{emailError.msg}}
+          .field
+            input(
+              type="password"
+              placeholder="Contraseña"
+              v-model="password"
+              @keyup="changeField(password, 'password')"
+            )
+            p.error(v-if="passwordError.show") {{passwordError.msg}}
+          button.btn.red(
+            type="submit"
           )
-          p.error(v-if="emailError.show") {{emailError.msg}}
-        .field
-          input(
-            type="password"
-            placeholder="*****"
-            v-model="password"
-            @keyup="changeField(password, 'password')"
-          )
-          p.error(v-if="passwordError.show") {{passwordError.msg}}
-        button.btn.red(@click="login")
-          span(v-if="!isLoading") Iniciar sesión
-          spinner(v-if="isLoading")
-      a Olvide mi contraseña
+            span(v-if="!isLoading") Iniciar sesión
+            spinner(v-if="isLoading")
+        a.link.recover-pass Olvide mi contraseña
 </template>
 
 <script>
-  import Spinner from './Spinner.vue';
-  import { isEmail } from '../scripts/general.js';
+  import Spinner from '@/components/loading/Spinner.vue';
+  import { isEmail } from '@/scripts/general.js';
+  import login from '@/services/login.js';
 
   export default {
     data () {
@@ -57,11 +64,19 @@
         }
 
         if (!this.emailError.show && !this.passwordError.show) {
+          let self = this;
           this.isLoading = true;
 
-          setTimeout(() => {
-            this.isLoading = false;
-          }, 1000);
+          login({ email: this.email, password: this.password})
+            .then(() => {
+              this.isLoading = false;
+            })
+            .catch(() => {
+              this.isLoading = false;
+              
+              this.passwordError.show = true;
+              this.$set(this.passwordError, 'msg', 'El usuario es incorrecto.');
+            })
         }
       },
       changeField(field, type) {
@@ -76,3 +91,28 @@
     }
   }
 </script>
+
+<style lang="scss">
+  .main {
+    background-color: #f5f5f5;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .container {
+    text-align: center;
+  }
+
+  .field {
+    margin-bottom: 20px;
+  }
+
+  .recover-pass {
+    color: #2c3e50;
+    text-decoration: underline;
+    margin-top: 25px;
+    display: block;
+  }
+</style>

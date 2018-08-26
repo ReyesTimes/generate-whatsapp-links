@@ -18,7 +18,8 @@ export default {
   @import "./sass/general.scss";
 
   body {
-    margin: 0px
+    margin: 0px;
+    font-family: $sourcefont;
   }
 
   ul {
@@ -27,12 +28,28 @@ export default {
     list-style: none;
   }
 
+  input {
+    padding: 0.8em 1em;
+    text-align: center;
+  }
+
   .btn{
+    border: 1px solid $white;
     text-align: center;
     text-transform: uppercase;
     color: $white;
-    padding: 7px;
+    min-height: 38.50px;
+    position: relative;
+    font-weight: bold;
+    padding: 0.8em 1.1em;
     width: 100%;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+    box-sizing: border-box;
+    outline:0;
+    -webkit-box-shadow: 1px 2px 3px 0px rgba(64, 64, 64, 0.52);
+    -moz-box-shadow: 1px 2px 3px 0px rgba(64, 64, 64, 0.52);
+    box-shadow: 1px 2px 3px 0px rgba(64, 64, 64, 0.52);
 
     &.green {
       background-color: $green;
@@ -41,5 +58,18 @@ export default {
     &.red {
       background-color: $red;
     }
+
+    .spinner {
+      position: absolute;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      top: 0.4em;
+    }
+  }
+
+  .error {
+    color: $red;
   }
 </style>

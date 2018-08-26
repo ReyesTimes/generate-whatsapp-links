@@ -18,7 +18,9 @@
       :currentPage="currentPage"
       @changePage="changePage"
     )
-    skeleton-ui
+    skeleton-ui(
+      v-if="isLoading"
+    )
     ul(v-for="item in list")
       LinkItem(:item="item")
     paginator(
@@ -45,7 +47,8 @@
         list: [],
         search: '',
         startDate: '',
-        endDate: ''
+        endDate: '',
+        isLoading: true
       }
     },
     methods: {
@@ -73,23 +76,25 @@
       SkeletonUi,
     },
     created() {
-      this.list = [
-        {
-          id: 1,
-          phone: 3318078464,
-          msg: 'Necesito la capacitacion',
-          date: '12/04/2018',
-          openingRate: 65
-        },
-        {
-          id: 2,
-          phone: 3318078464,
-          msg: 'Necesito la capacitacion',
-          date: '12/04/2018',
-          openingRate: 20
-        },
-
-      ];
+      setTimeout(() => {
+        this.isLoading = false;
+        this.list = [
+          {
+            id: 1,
+            phone: 3318078464,
+            msg: 'Necesito la capacitacion',
+            date: '12/04/2018',
+            openingRate: 65
+          },
+          {
+            id: 2,
+            phone: 3318078464,
+            msg: 'Necesito la capacitacion',
+            date: '12/04/2018',
+            openingRate: 20
+          },
+        ];
+      },1000);
     }
   }
 </script>
