@@ -1,5 +1,10 @@
 <template lang="pug">
     header.header
+      div
+        button(
+          @click="togglMenu"
+        ) icon
+        div logo
       nav
         ul
           li
@@ -12,9 +17,17 @@
 
 <script>
   export default {
+    data() {
+      return {
+        showMenu: false
+      }
+    },
     methods: {
+      togglMenu() {
+        this.showMenu = !this.showMenu;
+      },
       closeSession() {
-        
+
       }
     }
   }

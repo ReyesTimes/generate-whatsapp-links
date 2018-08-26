@@ -5,14 +5,18 @@
     p Ingresa el número y el mensaje que deseas envíar.
 
     form(@submit.prevent="generateLink" v-if="!hasLink.show")
-      .field.flex
-        input(
-          type="tel"
-          v-model="phone"
-        )
-        button.green Guardar
-        button.transparent ×
-        p.error(v-if="phoneError.show") {{phoneError.msg}}
+      phone-section(
+        :phone="phone"
+        v-show="!showEditPhone"
+      )
+      edit-phone(
+        :phone="phone"
+        :phoneError="phoneError"
+        v-show="showEditPhone"
+        @removePhone="removePhone"
+        @showPhoneMessage="showPhoneMessage"
+        @hidePhoneMessage="hidePhoneMessage"
+      )
       .field
         textarea(v-model="msg")
         p.error(v-if="msgError.show") {{msgError.msg}}
@@ -22,12 +26,15 @@
       a(:href="hasLink.url" target="_blank") {{hasLink.url}}
       button.green Copiar liga
       button.transparent.underline(
-        @click="edit"
+        @click="editLink"
       ) Editar
 </template>
 
 <script>
-  import HeaderComponent from './Header.vue';
+  import HeaderComponent from '@/components/Header.vue';
+  import SuccessGenerator from '@/components/SuccessGenerator.vue';
+  import PhoneSection from '@/components/PhoneSection.vue';
+  import EditPhone from '@/components/EditPhone.vue';
 
   import { encodeStringURI } from '../scripts/general.js';
   import { urlWhatsapp } from '../scripts/config.js';
@@ -43,22 +50,22 @@
         msgError: {
           show: false
         },
-        whatsappLink: {
-          exist: false
-        },
         hasLink: {
           show: false,
-        }
+        },
+        showEditPhone: true,
       }
     },
     components: {
-      HeaderComponent
+      HeaderComponent,
+      SuccessGenerator,
+      PhoneSection,
+      EditPhone
     },
     methods: {
       generateLink() {
         if (!this.phone) {
-          this.phoneError.show = true;
-          this.$set(this.phoneError, 'msg', 'No has ingresado tu número telefónico.');
+          this.showPhoneMessage('No has ingresado tu número telefónico.');
         }
 
         if (!this.msg) {
@@ -66,14 +73,58 @@
           this.$set(this.msgError, 'msg', 'No has ingresado ningún mensage.');
         }
 
-        let whatsappMsg = `${urlWhatsapp}${this.phone}?text=${encodeStringURI(this.msg)}`;
+        if (this.msg && this.phone) {
+          let msg = encodeStringURI(this.msg);
+
+          this.updateHasLink(msg);
+
+          localStorage.setItem(
+            'WHATSAPPLINK',
+            JSON.stringify({
+              phone: this.phone,
+              msg
+            })
+          );
+        }
+      },
+      updateHasLink(msg) {
+        let whatsappMsg = `${urlWhatsapp}${this.phone}?text=${msg}`;
 
         this.hasLink.show = true;
         this.$set(this.hasLink, 'url', whatsappMsg);
       },
-      edit() {
+      editLink() {
         this.hasLink.show = false;
+      },
+      removePhone() {
+        this.phone = '';
+        localStorage.removeItem('PHONE');
+      },
+      showPhoneMessage(msg) {
+        this.phoneError.show = true;
+        this.$set(this.phoneError, 'msg', msg);
+      },
+      hidePhoneMessage() {
+        this.phoneError.show = false;
+        this.phoneError.msg = '';
       }
+    },
+    created() {
+      if (localStorage.getItem('PHONE')) {
+        let phone = JSON.parse(localStorage.getItem('PHONE'));
+
+        this.showEditPhone = false;
+        this.phone = phone;
+      }
+
+      this.$bus.$on('update-phone', (phone) => {
+        if (phone) {
+          this.phone = phone;
+          localStorage.setItem('PHONE', this.phone);
+        }
+
+        this.showEditPhone = !this.showEditPhone;
+      });
     }
   }
 </script>

@@ -15,6 +15,8 @@ export default {
 </script>
 
 <style lang="scss">
+  @import "./sass/general.scss";
+
   body {
     margin: 0px
   }
@@ -28,16 +30,16 @@ export default {
   .btn{
     text-align: center;
     text-transform: uppercase;
-    color: #fff;
+    color: $white;
     padding: 7px;
     width: 100%;
 
     &.green {
-      background-color: #1C9F8A;
+      background-color: $green;
     }
 
     &.red {
-      background-color: #E82551;
+      background-color: $red;
     }
   }
 </style>
