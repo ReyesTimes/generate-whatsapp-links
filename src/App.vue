@@ -125,4 +125,27 @@ export default {
     display: block;
   }
 
+  .tooltip {
+    position: absolute;
+    top: -35px;
+    left: 0;
+    right: 0;
+    background-color: #1C9F8A;
+    width: 66px;
+    padding: 5px;
+    border-radius: 10px;
+    opacity: 1;
+    animation: mymove .5s;
+  }
+
+  @keyframes mymove {
+      from {
+        transform: translate(0em, 0);
+      }
+      to {
+        transform: translate(0em, -1em);
+        opacity: 0.8;
+      }
+  }
+
 </style>
