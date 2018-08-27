@@ -14,7 +14,8 @@
               v-model="email"
               @keyup="changeField(email, 'email')"
             )
-            p.error(v-if="emailError.show") {{emailError.msg}}
+            transition(name="show")
+              p.error(v-if="emailError.show") {{emailError.msg}}
           .field
             input(
               type="password"
@@ -22,21 +23,26 @@
               v-model="password"
               @keyup="changeField(password, 'password')"
             )
-            p.error(v-if="passwordError.show") {{passwordError.msg}}
+            transition(name="show")
+              p.error(v-if="passwordError.show") {{passwordError.msg}}
           button.btn.red(
             type="submit"
           )
-            span(v-if="!isLoading") Iniciar sesión
-            spinner(v-if="isLoading")
+            transition(name="show")
+              span(v-if="!isLoading") Iniciar sesión
+            transition(name="show")
+              spinner(v-if="isLoading")
         a.link.recover-pass Olvide mi contraseña
 </template>
 
 <script>
   import Spinner from '@/components/loading/Spinner.vue';
   import { isEmail } from '@/scripts/general.js';
-  import login from '@/services/login.js';
+  import { login } from '@/services/login.js';
+  import mixinAuth from '@/mixins/mixinAuth.js';
 
   export default {
+    mixins: [mixinAuth],
     data () {
       return {
         email: '',
@@ -66,35 +72,44 @@
         }
 
         if (!this.emailError.show && !this.passwordError.show) {
-          let self = this;
-          this.isLoading = true;
+          let self = this
+          this.isLoading = true
 
           login({ email: this.email, password: this.password})
             .then(() => {
-              this.isLoading = false;
+              this.isLoading = false
+              this.$router.push('/')
             })
             .catch(() => {
-              this.isLoading = false;
+              this.isLoading = false
 
-              this.passwordError.show = true;
-              this.$set(this.passwordError, 'msg', 'El usuario es incorrecto.');
+              this.passwordError.show = true
+              this.$set(this.passwordError, 'msg', 'El usuario es incorrecto.')
             })
         }
       },
       changeField(field, type) {
         if (field) {
-          this[`${type}Error`].show = false;
-          this[`${type}Error`].msg = '';
+          this[`${type}Error`].show = false
+          this[`${type}Error`].msg = ''
         }
       }
     },
     components: {
       Spinner
+    },
+    created() {
+      //do something after creating vue instance
+      this.auth();
     }
   }
 </script>
 
 <style lang="scss">
+  @import "~@/sass/show.scss";
+</style>
+
+<style lang="scss" scoped>
   .main {
     background-color: #f5f5f5;
     height: 100vh;

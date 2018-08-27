@@ -1,15 +1,15 @@
 <template lang="pug">
-    div
-      button.transparent(
+    .paginator
+      button.btn.small.transparent(
           @click="changePage(currentPage, 'left')"
           :disabled="isDisabled('left')"
       ) |<
-      button.transparent(
+      button.btn.small.transparent(
         v-for="page in totalPages"
         @click="changePage(page)"
         :class="(page === currentPage) ? 'active': ''"
       ) {{ page }}
-      button.transparent(
+      button.btn.small.transparent(
           @click="changePage(currentPage, 'right')"
           :disabled="isDisabled('right')"
       ) |>
@@ -42,3 +42,20 @@
     }
   }
 </script>
+
+<style lang="scss" scoped>
+  .paginator {
+    text-align: center;
+    margin-bottom: 10px;
+
+    .btn {
+      min-height: auto;
+      padding: 0.7em 0.9em;
+
+      &.active {
+        background-color: #34495e;
+        color: #fff;
+      }
+    }
+  }
+</style>

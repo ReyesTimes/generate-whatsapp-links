@@ -4,8 +4,10 @@
 </template>
 
 <script>
+import { auth } from '@/services/login.js';
 
 export default {
+
   name: 'app',
   data () {
     return {
@@ -22,6 +24,10 @@ export default {
     font-family: $sourcefont;
   }
 
+  h1 {
+    margin: 0px;
+  }
+
   ul {
     margin: 0px;
     padding: 0px;
@@ -30,6 +36,9 @@ export default {
 
   input, .btn {
     min-height: 40.50px;
+  }
+
+  * {
     -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
     -moz-box-sizing: border-box;    /* Firefox, other Gecko */
     box-sizing: border-box;
@@ -38,6 +47,7 @@ export default {
   input {
     padding: 0.8em 1em;
     text-align: center;
+    border: 1px solid #e1e1e1;
   }
 
   .btn{
@@ -60,6 +70,10 @@ export default {
 
     &.red {
       background-color: $red;
+    }
+
+    &.blue {
+      background-color: $blue;
     }
 
     &.transparent {
@@ -92,11 +106,30 @@ export default {
   }
 
   .field {
-    margin-bottom: 20px;
+    margin-bottom: 18px;
+
+    textarea {
+      width: 100%;
+      min-height: 100px;
+    }
+  }
+
+  .field-value {
+    background-color: #34495e;
+    color: #fff;
+    text-align: left;
+    width: 100%;
+    min-height: auto;
+    padding: 0.6em 1em;
+  }
+
+  .calendar {
+    right: 0%;
   }
 
   label {
     margin-bottom: 0.5em;
     display: block;
   }
+
 </style>

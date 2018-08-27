@@ -1,26 +1,32 @@
 <template lang="pug">
-  div
-    div
+  .select-date
+    .block
       label Fecha desde
       datepicker(
           v-model="startDateValue"
           format="d/MMM/yyyy"
           placeholder="--/--/----"
+          input-class="field-value"
+          @selected="changeDate('start')"
           :disabledDates="disabledStartDate"
           :language="es"
       )
-      span icon
-    div
+        span.icon(slot="afterDateInput")
+          font-awesome-icon(icon="caret-down")
+    .block
       label Fecha hasta
       datepicker(
           v-model="endDateValue"
           format="d/MMM/yyyy"
           placeholder="--/--/----"
+          input-class="field-value"
+          calendar-class="calendar"
           @selected="changeDate('end')"
           :disabledDates="disabledEndDate"
           :language="es"
       )
-      span icon
+        span.icon(slot="afterDateInput")
+          font-awesome-icon(icon="caret-down")
 </template>
 
 <script>
@@ -60,3 +66,29 @@
     }
   }
 </script>
+
+
+<style lang="scss" scoped>
+  .select-date {
+    margin-bottom: 10px;
+    display: flex;
+
+    .block {
+      width: 48%;
+
+      &:first-child {
+        margin-right: 4%;
+      }
+    }
+
+    .icon {
+      color: #fff;
+      position: absolute;
+      top: 0px;
+      right: 5%;
+      display: flex;
+      align-items: center;
+      height: 99%;
+    }
+  }
+</style>

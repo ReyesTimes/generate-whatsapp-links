@@ -1,7 +1,6 @@
 <template lang="pug">
   div
-    label(for="phone") Tu número
-    .field.flex
+    .field.field-edit
       input(
         type="tel"
         id="phone"
@@ -15,7 +14,8 @@
       button.btn.small.transparent(
         type="button"
         @click="removePhone"
-      ) ×
+      )
+        font-awesome-icon(icon="times")
       p.error(v-if="phoneError.show") {{phoneError.msg}}
 </template>
 
@@ -54,3 +54,19 @@
     }
   }
 </script>
+
+<style lang="scss">
+  .field-edit {
+    display: flex;
+
+    input {
+      width: 48%;
+      margin-right: 3%;
+      background-color: #eeeeee;
+    }
+
+    .btn {
+      margin-right: 1%;
+    }
+  }
+</style>
