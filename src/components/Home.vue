@@ -39,6 +39,7 @@
         .has-link(v-if="hasLink.show")
           a.link(:href="hasLink.url" target="_blank") {{hasLink.url}}
           button.btn.green(
+            @click="copyLink"
             :data-clipboard-text="hasLink.url"
             v-clipboard="true"
           ) Copiar liga
