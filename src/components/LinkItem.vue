@@ -17,7 +17,10 @@
             div
               strong {{ item.openingRate }}
           div.actions
-            button.small.btn.red
+            button.small.btn.red(
+                :data-clipboard-text="item.url"
+                v-clipboard="true"
+            )
               font-awesome-icon(icon="copy")
             button.small.btn.blue
               font-awesome-icon(icon="edit")

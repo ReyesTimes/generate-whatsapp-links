@@ -18,6 +18,11 @@ Vue.use(EventBus)
 Vue.use(decodeFilter)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
+Vue.directive(
+    'clipboard',
+    require('./directives/clipboard.js')
+);
+
 const router = new VueRouter({ routes })
 
 new Vue({

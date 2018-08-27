@@ -32,7 +32,6 @@
         if (this.phoneValue) {
           this.$bus.$emit('update-phone', this.phoneValue);
         } else {
-          console.log('you here', this);
           this.$emit('showPhoneMessage', 'No has ingresado ningún número télefonico.');
         }
       },

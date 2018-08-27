@@ -4,15 +4,8 @@
 </template>
 
 <script>
-import { auth } from '@/services/login.js';
-
 export default {
-
   name: 'app',
-  data () {
-    return {
-    }
-  }
 }
 </script>
 

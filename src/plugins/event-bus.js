@@ -1,3 +1,6 @@
+/*
+  Event bus help to update data in general components
+*/
 const EventBus = {};
 
 EventBus.install = function (Vue) {

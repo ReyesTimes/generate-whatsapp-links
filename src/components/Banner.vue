@@ -10,7 +10,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../sass/general.scss';
+  @import '~@/sass/general.scss';
 
   .banner {
     background-color: $red;
