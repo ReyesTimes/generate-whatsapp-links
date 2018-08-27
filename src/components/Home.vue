@@ -143,7 +143,7 @@
     },
     created() {
       this.auth();
-      
+
       if (localStorage.getItem('PHONE')) {
         let phone = JSON.parse(localStorage.getItem('PHONE'));
 

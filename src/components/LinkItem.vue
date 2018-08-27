@@ -6,16 +6,16 @@
           div {{ item.date }}
         div.block.msg
           div Mensaje
-          div {{ item.msg }}
+          p {{ item.msg | decode }}
       .flex
         div.block.phone
           div Cerrar
           div {{ item.phone }}
         div.block.rate
           div.child
-            div Tasa de apertura
+            div Cant. Copias
             div
-              strong {{ item.openingRate }}%
+              strong {{ item.openingRate }}
           div.actions
             button.small.btn.red
               font-awesome-icon(icon="copy")
@@ -58,6 +58,18 @@
 
       &.msg {
         width: 74%;
+
+        p {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          line-height: 21px;
+          max-height:45px;
+          margin: 0px;
+          word-break: break-all;
+          -webkit-line-clamp: 2;
+          -webkit-box-orient: vertical;
+        }
       }
 
       &.phone {

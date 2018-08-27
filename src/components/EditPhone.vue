@@ -60,7 +60,7 @@
     display: flex;
 
     input {
-      width: 48%;
+      width: 100%;
       margin-right: 3%;
       background-color: #eeeeee;
     }
